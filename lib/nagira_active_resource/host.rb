@@ -44,9 +44,7 @@ module NagiraActiveResource
         # resource - type of objects to search: host, hostgroup etc.
         # attribute - name of the attribute to do search by: :host_name, :check_command
         # @param *args String or Regexp to search objects
-        message,attribute  = $1, $3
-        all = $2
-        p all
+        message,all,attribute  = $1, $2, $3
 
         case all
         when '_all'

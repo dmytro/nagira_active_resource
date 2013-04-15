@@ -6,21 +6,28 @@ module NagiraActiveResource
   class Base  < ActiveResource::Base
 
     ##
-    # Return all hosts as Hash
+    # Return all objects as Hash
     #
-    def self.to_h
-      self.all.map &:attributes
+    # @param [Hash] args Extra arguents like :host_name for nested
+    #     objects (services) :params => !{'host_name' => 'viy'}
+    def self.to_h args={ }
+      self.all(args).map &:attributes
     end
     
     ##
     # Find host by attribute and its value
     #
     # @param [String] attribute
+    #
     # @param [String] value
     #
-    def self.find_by attribute, value
-      raise "No such attribute '#{attribute}'" unless first.attributes.has_key? attribute
-      to_h.find { |x| x[attribute.to_s] == value.to_s  }
+    # @param [Hash] args Extra arguents like :host_name for nested
+    #     objects (services) :params => !{'host_name' => 'viy'}
+    #
+    def self.find_by attribute, value, args={ }
+      # TODO: .first does not work for services, since 1st is 'Check time'
+      raise "No such attribute '#{attribute}'" unless last(args).attributes.has_key? attribute
+      self.to_h(args).find { |x| x[attribute.to_s] == value.to_s  }
     end
     
     
@@ -28,13 +35,17 @@ module NagiraActiveResource
     # Find hosts by attribute and its value
     #
     # @param [String] attribute
+    #
     # @param [String] value
     #
-    def self.find_all_by attribute, value
-      raise "No such attribute '#{attribute}'" unless first.attributes.has_key? attribute
-      to_h.reject { |x| x[attribute.to_s] != value.to_s  }
+    # @param [Hash] args Extra arguents like :host_name for nested
+    #     objects (services) :params => !{'host_name' => 'viy'}
+    #
+    def self.find_all_by attribute, value, args={ }
+      raise "No such attribute '#{attribute}'" unless last(args).attributes.has_key? attribute
+      to_h(args).reject { |x| x[attribute.to_s] != value.to_s  }
     end
-
+    
     ##
     # Dynamic methods for search
     #
@@ -45,21 +56,21 @@ module NagiraActiveResource
         # attribute - name of the attribute to do search by: :host_name, :check_command
         # @param *args String or Regexp to search objects
         message,all,attribute  = $1, $2, $3
-
+        
+        value = args.shift
+        
         case all
         when '_all'
-          find_all_by attribute, args[0]
+          find_all_by attribute, value, *args
         when nil
-          find_by attribute, args[0]
+          find_by attribute, value, *args
         end
-
+        
       else
         super  sym, *args, &block
       end
-      # raise(NoMethodError, "No such method #{sym.to_s} for #{self}") unless 
-      
     end
-
+    
   end
 end
 

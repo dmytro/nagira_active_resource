@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email       = ["dmytro.kovalov@gmail.com"]
   s.homepage    = "http://dmytro.github.com"
   s.summary     = "Rails side to Nagira API."
-  s.description = %W{ Since Nagira API in ActiveResource mode is not actually ActiveResource
+  s.description = %q{ Since Nagira API in ActiveResource mode is not actually ActiveResource
 compliant, there is a need to have component on the Rails side to
 provide additional functionality to make it look like ActiveResource.
 
@@ -23,6 +23,7 @@ Rails and ActiveResource models.
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 3.2.13"
+  s.add_dependency "nagira", "~> 0.2.7"
 
   s.add_development_dependency "sqlite3"
 end

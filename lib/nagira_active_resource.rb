@@ -50,4 +50,6 @@ Classes
 module NagiraActiveResource
 end
 
+require_relative "nagira_active_resource/base"
 require_relative "nagira_active_resource/host"
+require_relative "nagira_active_resource/service"

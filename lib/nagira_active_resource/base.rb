@@ -5,7 +5,9 @@ module NagiraActiveResource
   #
   class Base  < ActiveResource::Base
 
-    @@logger = ActiveRecord::Base.logger
+
+    @@logger = Logger.new(STDOUT)
+
     ##
     # Return all objects as Hash
     #
@@ -15,7 +17,7 @@ module NagiraActiveResource
       begin
         self.all(args).map &:attributes
       rescue NoMethodError => e
-        logger.warn "Search did not return any results: #{args}, #{caller[0]}"
+        @@logger.warn "Search did not return any results: #{args}, #{caller[0]}"
         { }
       end
     end

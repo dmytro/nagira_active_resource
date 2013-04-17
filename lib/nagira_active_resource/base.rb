@@ -5,13 +5,19 @@ module NagiraActiveResource
   #
   class Base  < ActiveResource::Base
 
+    @@logger = ActiveRecord::Base.logger
     ##
     # Return all objects as Hash
     #
     # @param [Hash] args Extra arguents like :host_name for nested
     #     objects (services) :params => !{'host_name' => 'viy'}
     def self.to_h args={ }
-      self.all(args).map &:attributes
+      begin
+        self.all(args).map &:attributes
+      rescue NoMethodError => e
+        logger.warn "Search did not return any results: #{args}, #{caller[0]}"
+        { }
+      end
     end
     
     ##
@@ -26,7 +32,11 @@ module NagiraActiveResource
     #
     def self.find_by attribute, value, args={ }
       # TODO: .first does not work for services, since 1st is 'Check time'
-      raise "No such attribute '#{attribute}'" unless last(args).attributes.has_key? attribute
+      begin
+        @@logger.error "No such attribute '#{attribute}'" unless self.last(args).attributes.has_key? attribute
+      rescue 
+        @@logger.info self
+      end
       self.to_h(args).find { |x| x[attribute.to_s] == value.to_s  }
     end
     
@@ -45,9 +55,20 @@ module NagiraActiveResource
       raise "No such attribute '#{attribute}'" unless last(args).attributes.has_key? attribute
       to_h(args).reject { |x| x[attribute.to_s] != value.to_s  }
     end
+
+    ## TODO
+    # Instance level methods - attribute accessors
+    #
+    #     def method_missing  sym, *args, &block
+    #       if self.has_key? sym
+    #         self[sym]
+    #       else
+    #         super  sym, *args, &block
+    #       end
+    #     end
     
     ##
-    # Dynamic methods for search
+    # Dynamic methods for search - class level methods
     #
     def self.method_missing sym, *args, &block
       if sym.to_s =~ /^(find(_all)?)_by_(.*)$/

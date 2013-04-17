@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    nagira_active_resource (0.0.2)
+    nagira_active_resource (0.0.3)
       nagira (~> 0.2.7)
       rails (~> 3.2.13)
 

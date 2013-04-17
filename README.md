@@ -13,7 +13,19 @@ Rails and ActiveResource models.
 Usage
 ===========
 
-Define your models like
+* Install gem
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~bash
+gem install nagira_active_resource
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+or add it to `Gemfile`
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ruby
+gem 'nagira_active_resource'
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Define your models
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ruby
 class Host < NagiraActiveResource::Host
@@ -27,10 +39,10 @@ class Service < ActiveResource::Base
 end
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Add initializer in `config/initialiazers`
+* Add initializer in `config/initialiazers`
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ruby
-require 'nagira_active_resource/lib/nagira_active_resource'
+require 'nagira_active_resource'
 
 Rails::NAGIRA={ 
   host: 'localhost',
@@ -38,14 +50,24 @@ Rails::NAGIRA={
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+See also
+===========
+
+Nagira API
+
+* [http://dmytro.github.com/nagira](http://dmytro.github.com/nagira)
+* [https://github.com/dmytro/nagira](https://github.com/dmytro/nagira)
+
 License
 ===========
 
-This project uses MIT-LICENSE.
+This project uses {file:MIT-LICENSE}.
 
 Author
 ===========
 
 Dmytro Kovalov
+
 http://dmytro.github.com
+
 dmytro.kovalov@gmail.com

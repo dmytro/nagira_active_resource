@@ -11,7 +11,7 @@ module NagiraActiveResource
     ##
     # Return all objects as Hash
     #
-    # @param [Hash] args Extra arguents like :host_name for nested
+    # @param [Hash] args Extra arguments like :host_name for nested
     #     objects (services) :params => !{'host_name' => 'viy'}
     def self.to_h args={ }
       begin
@@ -29,7 +29,7 @@ module NagiraActiveResource
     #
     # @param [String] value
     #
-    # @param [Hash] args Extra arguents like :host_name for nested
+    # @param [Hash] args Extra arguments like :host_name for nested
     #     objects (services) :params => !{'host_name' => 'viy'}
     #
     def self.find_by attribute, value, args={ }
@@ -50,7 +50,7 @@ module NagiraActiveResource
     #
     # @param [String] value
     #
-    # @param [Hash] args Extra arguents like :host_name for nested
+    # @param [Hash] args Extra arguments like :host_name for nested
     #     objects (services) :params => !{'host_name' => 'viy'}
     #
     def self.find_all_by attribute, value, args={ }

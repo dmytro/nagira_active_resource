@@ -9,7 +9,7 @@ Since Nagira API in ActiveResource mode is not actually ActiveResource
 compliant, there is a need to have component on the Rails side to
 provide additional functionality to make it look like ActiveResource.
 
-This module provides additional methods use Nagira together with
+This module provides additional methods for using Nagira together with
 Rails and ActiveResource models.
 
 Usage
@@ -40,11 +40,32 @@ Rails::NAGIRA={
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Search objects as:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ruby
+
+# Find host
+@host = Host.find_by_host_name 'web01'
+
+#
+# All services in FAILURE state
+#
+@services = Service.find_all_by_current_state 2
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 Classes
 ===========
 
 * {Host}
 * {Service}
+
+Methods
+===========
+
+NagiraActiveResource module provides dynamic methods find_by_* and
+find_all_by_* similar to Rails find methods, limited however to only
+one attribute in search.
 
 =end
 module NagiraActiveResource

@@ -1,7 +1,7 @@
 module NagiraActiveResource 
 
   ##
-  # Rails-like methods for Nagira service class
+  # Rails-like methods for Nagira Service class
   #
   class Service  < Base
 
